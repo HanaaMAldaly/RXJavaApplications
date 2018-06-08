@@ -5,8 +5,10 @@ import android.arch.lifecycle.ViewModel;
 import com.triplanner.iti.startingrxjava.Day3.Model.DataSource;
 import com.triplanner.iti.startingrxjava.Day3.entities.Post;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -18,15 +20,17 @@ import io.reactivex.subjects.BehaviorSubject;
  */
 
 public class PostViewModel extends ViewModel{
-    BehaviorSubject<List<Post>> moviesSubject;
-    BehaviorSubject<Boolean>loading;
-    DataSource dataSource;
+   public BehaviorSubject<List<Post>> moviesSubject;
+    public BehaviorSubject<Boolean>loading;
+    public DataSource dataSource;
     CompositeDisposable disposable;
+    Scheduler schedulers;
 
     public PostViewModel() {
-        moviesSubject=BehaviorSubject.create();
+        moviesSubject=BehaviorSubject.createDefault(new ArrayList<>());
         loading=BehaviorSubject.createDefault(false);
-        dataSource=new DataSource();
+        this.dataSource=new DataSource();
+        //this.schedulers=schedulers;
         disposable=new CompositeDisposable();
 
 
@@ -35,9 +39,11 @@ public class PostViewModel extends ViewModel{
         disposable.add(requestData());
     }
     public Disposable requestData(){
+        loading.onNext(true);
        return dataSource.getData()
-         .subscribeOn(Schedulers.io())
-         .observeOn(AndroidSchedulers.mainThread())
+         .subscribeOn(Schedulers.computation())
+         .observeOn(Schedulers.io())
+          .doFinally(()->loading.onNext(false))
         .subscribe(moviesSubject::onNext);
     }
 

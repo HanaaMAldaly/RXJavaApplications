@@ -6,6 +6,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.triplanner.iti.startingrxjava.Day3.Model.DataSource;
 import com.triplanner.iti.startingrxjava.Day3.entities.Post;
 import com.triplanner.iti.startingrxjava.Day3.network.APIInterface;
 import com.triplanner.iti.startingrxjava.Day3.network.RetrofitClient;
@@ -31,6 +32,7 @@ public class PostViewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_view);
         recyclerView=findViewById(R.id.recyclerView);
+        DataSource dataSource=new DataSource();
         postViewModel=new PostViewModel();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);

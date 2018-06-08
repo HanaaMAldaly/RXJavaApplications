@@ -1,5 +1,8 @@
 package com.triplanner.iti.startingrxjava.Day4.features;
 
+import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -36,7 +39,7 @@ public class PhotoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_photo);
         ButterKnife.bind(this);
         disposable=new CompositeDisposable();
-        photoViewModel=new PhotoViewModel();
+        photoViewModel= ViewModelProviders.of(this).get(PhotoViewModel.class);
         bindRecycleView(photoViewModel.photos);
         disposable.add(photoViewModel.photos
                 .observeOn(AndroidSchedulers.mainThread())
@@ -50,7 +53,7 @@ public class PhotoActivity extends AppCompatActivity {
 
     public void bindRecycleView(BehaviorSubject<List<Photo>> photos){
         PhotoAdapter photoAdapter=new PhotoAdapter(this,photos);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+       recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         //recyclerView.setAdapter(photoAdapter);
 

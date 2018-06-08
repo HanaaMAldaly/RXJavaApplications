@@ -61,8 +61,6 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.PhotoViewHol
         ImageView imageView;
         public PhotoViewHolder(View itemView) {
             super(itemView);
-           /* textView=itemView.findViewById(R.id.textView2);
-            imageView=itemView.findViewById(R.id.imageView);*/
             ButterKnife.bind(this,itemView);
         }
     }
