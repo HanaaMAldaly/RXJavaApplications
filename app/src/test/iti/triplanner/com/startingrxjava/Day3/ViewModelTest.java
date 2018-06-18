@@ -1,4 +1,4 @@
-package com.triplanner.iti.startingrxjava.Day3Test;
+package com.triplanner.iti.startingrxjava;
 
 
 /**
@@ -21,7 +21,7 @@ public class ViewModelTest {
         PostViewModel postViewModel=new PostViewModel();
         postViewModel.getData();
         while (postViewModel.loading.getValue());
-        //assertTrue(!postViewModel.moviesSubject.getValue().isEmpty());
+        //assertTrue(!postViewModel.moviesSubject.getValue().isEmpty())
         Mockito.verify(postViewModel.moviesSubject).set();
         assertEquals(100,postViewModel.moviesSubject.getValue().size());
 

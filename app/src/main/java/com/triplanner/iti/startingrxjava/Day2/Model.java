@@ -3,11 +3,17 @@ package com.triplanner.iti.startingrxjava.Day2;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.inject.Inject;
+
 /**
  * Created by Hanaa on 5/19/2018.
  */
 
 public class Model {
+    @Inject
+    public Model() {
+    }
+
     public ArrayList<Integer> generateData(){
         ArrayList<Integer> arr=new ArrayList();
         Random random=new Random();

@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.triplanner.iti.startingrxjava.Day3.Model.DataSource;
+import com.triplanner.iti.startingrxjava.Day3.MyApplication;
+import com.triplanner.iti.startingrxjava.Day3.depencdecyinjection.MyComponent3;
 import com.triplanner.iti.startingrxjava.Day3.entities.Post;
 import com.triplanner.iti.startingrxjava.Day3.network.APIInterface;
 import com.triplanner.iti.startingrxjava.Day3.network.RetrofitClient;
@@ -14,6 +16,9 @@ import com.triplanner.iti.startingrxjava.R;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
@@ -25,15 +30,19 @@ public class PostViewActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     CompositeDisposable disposable;
     APIInterface apiInterface;
+    @Inject
     PostViewModel postViewModel;
+    @Inject
+    PostAdapter postAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_view);
+       // ((MyApplication)getApplication()).getMyComponent3().inject(this);
+        AndroidInjection.inject(this);
         recyclerView=findViewById(R.id.recyclerView);
-        DataSource dataSource=new DataSource();
-        postViewModel=new PostViewModel();
+
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -41,7 +50,8 @@ public class PostViewActivity extends AppCompatActivity {
         postViewModel.getData();
         disposable=new CompositeDisposable();
         disposable.add(postViewModel.moviesSubject
-                .map((posts)->new PostAdapter(this,posts))
+                .map((posts)->postAdapter)
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(recyclerView::setAdapter));
        /*
         Retrofit retrofit= RetrofitClient.getInstance();
@@ -51,12 +61,12 @@ public class PostViewActivity extends AppCompatActivity {
     }
 
     private void fetchData() {
-        disposable.add(apiInterface.getPosts()
+        /*disposable.add(apiInterface.getPosts()
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .map((posts -> new PostAdapter(this,posts)))
         .subscribe(recyclerView::setAdapter)
-        );
+        );*/
 
     }
 

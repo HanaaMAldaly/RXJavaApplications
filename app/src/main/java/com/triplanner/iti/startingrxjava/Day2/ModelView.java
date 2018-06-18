@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModel;
 
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.subjects.BehaviorSubject;
 
@@ -13,14 +15,19 @@ import io.reactivex.subjects.BehaviorSubject;
 
 public class ModelView extends ViewModel {
     BehaviorSubject<ArrayList<Integer>> number;
+    @Inject
     Model model;
     BehaviorSubject<Boolean>loading;
+    @Inject
     public ModelView(){
         number=BehaviorSubject.createDefault(new ArrayList<>());
-        model=new Model();
+        loading=BehaviorSubject.createDefault(false);
+      DaggerMyComponent.builder().build().inject(this);
     }
     public void requestChange(){
         Observable.fromCallable(()->model.generateData())
+                .doOnNext((it)->loading.onNext(true))
+                .doFinally(()->loading.onNext(false))
                 .subscribe((result)->number.onNext(result));
     }
 

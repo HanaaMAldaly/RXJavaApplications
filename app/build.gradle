@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.triplanner.iti.startingrxjava"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -51,7 +51,12 @@ dependencies {
     implementation "com.jakewharton:butterknife:8.8.1"
     annotationProcessor "com.jakewharton:butterknife-compiler:8.8.1"
     //JUnit 4 framwork
+
     testImplementation 'junit:junit:4.12'
 
-
+    //dagger
+    implementation 'com.google.dagger:dagger:2.11'
+    implementation 'com.google.dagger:dagger-android:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 }

@@ -10,21 +10,26 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.triplanner.iti.startingrxjava.Day2.DaggerMyComponent;
+import com.triplanner.iti.startingrxjava.Day3.depencdecyinjection.DaggerMyComponent3;
 import com.triplanner.iti.startingrxjava.Day3.entities.Post;
 import com.triplanner.iti.startingrxjava.R;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 /**
  * Created by Hanaa on 5/21/2018.
  */
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
-    Context context;
-    List<Post> posts;
 
-    public PostAdapter(Context context, List<Post> posts){
-        this.context = context;
+    List<Post> posts;
+    @Inject
+    public PostAdapter(Context context,List<Post> posts){
+       /// DaggerMyComponent3.builder().build().inject(this);
+//        Log.i("MMM",str);
         this.posts = posts;
     }
 

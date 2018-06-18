@@ -1,34 +1,28 @@
-package com.triplanner.iti.startingrxjava.Day3.network;
+package com.triplanner.iti.startingrxjava.MVP.Model.NetworkLayer;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import javax.inject.Inject;
-import javax.inject.Singleton;
-
-import io.reactivex.plugins.RxJavaPlugins;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
- * Created by Hanaa on 5/21/2018.
+ * Created by Hanaa on 6/15/2018.
  */
 
-public class RetrofitClient {
-    private static  Retrofit ourInstance ;
+class RetrofitClient {
+    private static  Retrofit ourInstance=null ;
 
-    public static Retrofit getInstance() {
-        if (ourInstance==null){
-            ourInstance=new Retrofit.Builder()
+    static Retrofit getInstance()
+    {
+        if(ourInstance==null) {
+            ourInstance = new Retrofit.Builder()
                     .baseUrl("https://jsonplaceholder.typicode.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
-
         }
-
         return ourInstance;
     }
-
 
     private RetrofitClient() {
     }
