@@ -39,7 +39,7 @@ public class Module3 {
     }
     @Provides
     @Singleton
-    PostViewModel getViewModel(){
+     PostViewModel getViewModel(){
         return new PostViewModel();
     }
     @Provides

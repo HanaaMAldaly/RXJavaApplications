@@ -5,17 +5,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".Day3.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:name=".Day3.MyApplication">
+        android:theme="@style/AppTheme">
         <activity android:name=".login.LoginView" />
-        <activity android:name=".Day2.View" >
-
-        </activity>
+        <activity android:name=".Day2.View"></activity>
         <activity android:name=".Day3.fetures.PostViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Day4.features.PhotoActivity">
-
-        </activity>
-        <activity android:name=".MVP.screens.Main2Activity">
-
-        </activity>
+        <activity android:name=".Day4.features.PhotoActivity"></activity>
+        <activity android:name=".MVP.screens.Main2Activity"></activity>
+        <activity android:name=".Day3.fetures.Main3Activity"></activity>
     </application>
 
 </manifest>

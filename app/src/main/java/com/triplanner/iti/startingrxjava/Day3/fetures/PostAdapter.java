@@ -19,11 +19,15 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
+
 /**
  * Created by Hanaa on 5/21/2018.
  */
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.PostViewHolder> {
+
+
 
     List<Post> posts;
     @Inject

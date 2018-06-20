@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.triplanner.iti.startingrxjava.Day3.Model.DataSource;
 import com.triplanner.iti.startingrxjava.Day3.MyApplication;
@@ -18,6 +19,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindString;
+import butterknife.ButterKnife;
 import dagger.android.AndroidInjection;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -29,11 +32,12 @@ public class PostViewActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     CompositeDisposable disposable;
-    APIInterface apiInterface;
     @Inject
     PostViewModel postViewModel;
     @Inject
     PostAdapter postAdapter;
+    @BindString(R.string.app_name)
+    String appName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +45,9 @@ public class PostViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_view);
        // ((MyApplication)getApplication()).getMyComponent3().inject(this);
         AndroidInjection.inject(this);
+        ButterKnife.bind(this);
         recyclerView=findViewById(R.id.recyclerView);
-
+        Toast.makeText(this, appName+"", Toast.LENGTH_SHORT).show();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
